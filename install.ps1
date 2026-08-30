@@ -82,8 +82,13 @@ function Read-DotEnv {
     foreach ($rawLine in Get-Content -LiteralPath $Path) {
         $line = $rawLine.Trim()
         if (-not $line -or $line.StartsWith('#') -or -not $line.Contains('=')) { continue }
-        $parts = $line.Split(@('='), 2)
-        $values[$parts[0].Trim()] = $parts[1].Trim().Trim('"').Trim("'")
+        # ``String.Split(..., 2)`` неодинаково выбирает перегрузку метода в
+        # Windows PowerShell 5.1 и PowerShell 7. Ищем первый разделитель
+        # вручную, чтобы значение могло содержать знак ``=``.
+        $separatorIndex = $line.IndexOf('=')
+        $key = $line.Substring(0, $separatorIndex).Trim()
+        $value = $line.Substring($separatorIndex + 1).Trim().Trim('"').Trim("'")
+        $values[$key] = $value
     }
     return $values
 }
