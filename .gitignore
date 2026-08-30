@@ -1,0 +1,20 @@
+# Локальная конфигурация и реальные EPC.
+.env
+whitelist.txt
+
+# Рабочие журналы и состояние установки.
+logs/
+*.log
+runtime/
+packages/
+network_before_install.json
+
+# Python cache.
+__pycache__/
+*.py[cod]
+
+# Локальные настройки редакторов и ОС.
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
