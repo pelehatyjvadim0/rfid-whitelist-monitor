@@ -127,6 +127,19 @@ C:\ProgramData\RFIDWhitelistMonitor\logs\whitelist_monitor.log
 health-check, запуск Inventory, `ОТКАЗ`, `СОВПАДЕНИЕ`, результат звука и
 остановка.
 
+Просматривать новые события в реальном времени можно из PowerShell:
+
+```powershell
+Get-Content `
+  "C:\ProgramData\RFIDWhitelistMonitor\logs\whitelist_monitor.log" `
+  -Encoding UTF8 `
+  -Tail 50 `
+  -Wait
+```
+
+`Ctrl+C` останавливает только просмотр журнала. Фоновый монитор продолжает
+работать.
+
 Управление фоновой задачей выполняется из PowerShell администратора:
 
 ```powershell
